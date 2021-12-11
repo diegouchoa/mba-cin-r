@@ -1,6 +1,6 @@
 ---
-title: "Meu primeiro Relatório"
-author: "André Leite"
+title: "Relatório Gonzagão"
+author: "Carlos H Medeiros e Diego Uchoa"
 date: "12/11/2021"
 output: html_document
 ---

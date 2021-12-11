@@ -1,6 +1,6 @@
 ---
 title: "Carlinhos e Didi"
-author: "Carlos Henrique Medeiros e Diego Uchôa"
+author: "Carlos Henrique Medeiros e Diego Uchoa"
 date: "`r Sys.Date()`"
 output_dir: "."
 output:
@@ -23,6 +23,8 @@ Lista:
 
 ```{r dados}
 library(tidyverse)
+library(prettydoc)
+library(rmarkdown)
 ## Leitura dos dados
 survey <- read_csv("dados/kaggle_survey_2021_responses.csv", 
                    locale = locale())
@@ -63,11 +65,3 @@ survey_limpo %>%
   labs(fill = "Gênero")
 ```
 
-
-
-
-## Stay Tuned
-
-Please visit the [development page](https://github.com/yixuan/prettydoc/) of the 
-`prettydoc` package for latest updates and news. Comments, bug reports and
-pull requests are always welcome.

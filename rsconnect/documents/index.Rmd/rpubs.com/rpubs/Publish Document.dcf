@@ -1,0 +1,11 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/846335/2f8c62e6e4ea45f0b9a519f35bbc3524
+bundleId: https://api.rpubs.com/api/v1/document/846335/2f8c62e6e4ea45f0b9a519f35bbc3524
+url: http://rpubs.com/DiegoUchoa/846335
+when: 1639229684.86695
+lastSyncTime: 1639229684.86695
