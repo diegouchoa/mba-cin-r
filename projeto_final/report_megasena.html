@@ -150,8 +150,14 @@ a.sourceLine {
 <blockquote>
 <p>Analisando o dataframe</p>
 </blockquote>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Listando colunas do dataset</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(df, <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Quantidade de colunas</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(df)</span></code></pre></div>
+<pre><code>## [1] 22</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Quantidade de linhas</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df)</span></code></pre></div>
+<pre><code>## [1] 2445</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Listando colunas do dataset</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(df, <span class="dv">5</span>))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="5%" />
@@ -326,11 +332,11 @@ a.sourceLine {
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Renomeando a 1a coluna</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Concurso&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Como ficou o dataset após o ajuste nas colunas</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(df, <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Renomeando a 1a coluna</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;Concurso&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Como ficou o dataset após o ajuste nas colunas</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(df, <span class="dv">5</span>))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="2%" />
@@ -508,39 +514,187 @@ a.sourceLine {
 <blockquote>
 <p>Descobrindo os numeros que aparecem com maior frequência</p>
 </blockquote>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Fatiamento das colunas que contém os números sorteados</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df[<span class="dv">4</span><span class="sc">:</span><span class="dv">9</span>])</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Listagem números únicos</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>numero <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(m))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Descobrindo quantas vezes foram sorteados</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>qtd_repeticoes <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numero, <span class="cf">function</span>(x) <span class="fu">sum</span>(m <span class="sc">==</span> x))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>df_resultado <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(numero, qtd_repeticoes)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Fatiamento das colunas que contém os números sorteados</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df[<span class="dv">4</span><span class="sc">:</span><span class="dv">9</span>])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Listagem números únicos</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>numero <span class="ot">&lt;-</span> <span class="fu">unique</span>(<span class="fu">c</span>(m))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Descobrindo quantas vezes foram sorteados</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>qtd_repeticoes <span class="ot">&lt;-</span> <span class="fu">sapply</span>(numero, <span class="cf">function</span>(x) <span class="fu">sum</span>(m <span class="sc">==</span> x))</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df_resultado <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(numero, qtd_repeticoes)</span></code></pre></div>
 <blockquote>
 <p>Top 10 números com maior frequência</p>
 </blockquote>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>maior_repeticao <span class="ot">&lt;-</span> <span class="fu">head</span>(df_resultado[<span class="fu">with</span>(df_resultado, <span class="fu">order</span>(<span class="sc">-</span>df_resultado<span class="sc">$</span>qtd_repeticoes)), ], <span class="dv">10</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(maior_repeticao<span class="sc">$</span>qtd_repeticoes,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">main =</span> <span class="st">&quot;Top 10 números com maior frequência&quot;</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">&quot;Dezenas&quot;</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">names.arg =</span> maior_repeticao<span class="sc">$</span>numero,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">horiz =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>maior_repeticao <span class="ot">&lt;-</span> <span class="fu">head</span>(df_resultado[<span class="fu">with</span>(df_resultado, <span class="fu">order</span>(<span class="sc">-</span>df_resultado<span class="sc">$</span>qtd_repeticoes)), ], <span class="dv">10</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  maior_repeticao<span class="sc">$</span>qtd_repeticoes,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Top 10 números com maior frequência&quot;</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Dezenas&quot;</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">names.arg =</span> maior_repeticao<span class="sc">$</span>numero,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">horiz =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <blockquote>
 <p>Top 10 números com menor frequência</p>
 </blockquote>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>menor_repeticao <span class="ot">&lt;-</span> <span class="fu">head</span>(df_resultado[<span class="fu">with</span>(df_resultado, <span class="fu">order</span>(df_resultado<span class="sc">$</span>qtd_repeticoes)), ], <span class="dv">10</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(menor_repeticao<span class="sc">$</span>qtd_repeticoes,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">main =</span> <span class="st">&quot;Top 10 números com menor frequência&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">&quot;Dezenas&quot;</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">names.arg =</span> menor_repeticao<span class="sc">$</span>numero,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">horiz =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>menor_repeticao <span class="ot">&lt;-</span> <span class="fu">head</span>(df_resultado[<span class="fu">with</span>(df_resultado, <span class="fu">order</span>(df_resultado<span class="sc">$</span>qtd_repeticoes)), ], <span class="dv">10</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  menor_repeticao<span class="sc">$</span>qtd_repeticoes,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Top 10 números com menor frequência&quot;</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Dezenas&quot;</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">names.arg =</span> menor_repeticao<span class="sc">$</span>numero,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">horiz =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
+<blockquote>
+<p>Sorteio com maior número de ganhadores do prêmio principal</p>
+</blockquote>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>maior_num_ganhadores <span class="ot">&lt;-</span> df[<span class="fu">which.max</span>(df<span class="sc">$</span>Ganhadores.Faixa<span class="fl">.1</span>),]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> maior_num_ganhadores[ , <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">22</span>)]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(resultado) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Concurso&quot;</span>, </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Data sorteio&quot;</span>, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Qtd apostas&quot;</span>, </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Rateio p/ cartão&quot;</span>, </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Valor arrecadado&quot;</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;1a dezena&quot;</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;2a dezena&quot;</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;3a dezena&quot;</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;4a dezena&quot;</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;5a dezena&quot;</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;6a dezena&quot;</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Obs&quot;</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(resultado)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="2%" />
+<col width="3%" />
+<col width="5%" />
+<col width="4%" />
+<col width="6%" />
+<col width="6%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Concurso</th>
+<th align="left">Data sorteio</th>
+<th align="right">Qtd apostas</th>
+<th align="left">Rateio p/ cartão</th>
+<th align="right">Valor arrecadado</th>
+<th align="right">1a dezena</th>
+<th align="right">2a dezena</th>
+<th align="right">3a dezena</th>
+<th align="right">4a dezena</th>
+<th align="right">5a dezena</th>
+<th align="right">6a dezena</th>
+<th align="left">Obs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2110</td>
+<td align="right">2110</td>
+<td align="left">31/12/2018</td>
+<td align="right">52</td>
+<td align="left">5818007,36</td>
+<td align="right">886048366</td>
+<td align="right">5</td>
+<td align="right">10</td>
+<td align="right">12</td>
+<td align="right">18</td>
+<td align="right">25</td>
+<td align="right">33</td>
+<td align="left">AS APOSTAS GANHADORAS DO CANAL ELETRÔNICO SÃO DAS CIDADE DE SIMÕES FILHO(BA), BELO HORIZONTE(MG) E CUIABÁ(MT)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Sorteio com maior valor arrecadado</p>
+</blockquote>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>maior_premio <span class="ot">&lt;-</span> df[<span class="fu">which.max</span>(df<span class="sc">$</span>Valor.Arrecadado),]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> maior_premio[ , <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">4</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">22</span>)]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(resultado) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Concurso&quot;</span>, </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Data sorteio&quot;</span>, </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Qtd apostas&quot;</span>, </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Rateio p/ cartão&quot;</span>, </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Valor arrecadado&quot;</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;1a dezena&quot;</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;2a dezena&quot;</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;3a dezena&quot;</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;4a dezena&quot;</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;5a dezena&quot;</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;6a dezena&quot;</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Obs&quot;</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(resultado)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="6%" />
+<col width="9%" />
+<col width="8%" />
+<col width="12%" />
+<col width="12%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="2%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Concurso</th>
+<th align="left">Data sorteio</th>
+<th align="right">Qtd apostas</th>
+<th align="left">Rateio p/ cartão</th>
+<th align="right">Valor arrecadado</th>
+<th align="right">1a dezena</th>
+<th align="right">2a dezena</th>
+<th align="right">3a dezena</th>
+<th align="right">4a dezena</th>
+<th align="right">5a dezena</th>
+<th align="right">6a dezena</th>
+<th align="left">Obs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2440</td>
+<td align="right">2440</td>
+<td align="left">31/12/2021</td>
+<td align="right">2</td>
+<td align="left">189062363,7</td>
+<td align="right">1510256529</td>
+<td align="right">12</td>
+<td align="right">15</td>
+<td align="right">23</td>
+<td align="right">32</td>
+<td align="right">33</td>
+<td align="right">46</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 

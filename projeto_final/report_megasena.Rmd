@@ -27,6 +27,11 @@ df <- as.data.frame(f)
 > Analisando o dataframe
 
 ```{r functions, echo=T}
+## Quantidade de colunas
+length(df)
+
+## Quantidade de linhas
+nrow(df)
 
 ## Listando colunas do dataset
 knitr::kable(head(df, 5))
@@ -57,12 +62,13 @@ df_resultado <- data.frame(numero, qtd_repeticoes)
 ```{r ordenacao_maior_repeticao}
 maior_repeticao <- head(df_resultado[with(df_resultado, order(-df_resultado$qtd_repeticoes)), ], 10)
 
-barplot(maior_repeticao$qtd_repeticoes,
-main = "Top 10 números com maior frequência",
-xlab = "Dezenas",
-ylab = "Frequência",
-names.arg = maior_repeticao$numero,
-horiz = FALSE)
+barplot(
+  maior_repeticao$qtd_repeticoes,
+  main = "Top 10 números com maior frequência",
+  xlab = "Dezenas",
+  ylab = "Frequência",
+  names.arg = maior_repeticao$numero,
+  horiz = FALSE)
 ```
 
 > Top 10 números com menor frequência
@@ -70,10 +76,59 @@ horiz = FALSE)
 ```{r ordenacao_menor_repeticao}
 menor_repeticao <- head(df_resultado[with(df_resultado, order(df_resultado$qtd_repeticoes)), ], 10)
 
-barplot(menor_repeticao$qtd_repeticoes,
-main = "Top 10 números com menor frequência",
-xlab = "Dezenas",
-ylab = "Frequência",
-names.arg = menor_repeticao$numero,
-horiz = FALSE)
+barplot(
+  menor_repeticao$qtd_repeticoes,
+  main = "Top 10 números com menor frequência",
+  xlab = "Dezenas",
+  ylab = "Frequência",
+  names.arg = menor_repeticao$numero,
+  horiz = FALSE)
+```
+
+> Sorteio com maior número de ganhadores do prêmio principal
+
+```{r maior_num_ganhadores}
+maior_num_ganhadores <- df[which.max(df$Ganhadores.Faixa.1),]
+
+resultado <- maior_num_ganhadores[ , c(1, 3, 10, 13, 17, 4:9, 22)]
+
+colnames(resultado) <- c(
+  "Concurso", 
+  "Data sorteio", 
+  "Qtd apostas", 
+  "Rateio p/ cartão", 
+  "Valor arrecadado",
+  "1a dezena",
+  "2a dezena",
+  "3a dezena",
+  "4a dezena",
+  "5a dezena",
+  "6a dezena",
+  "Obs")
+
+knitr::kable(resultado)
+```
+
+> Sorteio com maior valor arrecadado
+
+```{r maior_premio}
+maior_premio <- df[which.max(df$Valor.Arrecadado),]
+
+resultado <- maior_premio[ , c(1, 3, 10, 13, 17, 4:9, 22)]
+
+colnames(resultado) <- c(
+  "Concurso", 
+  "Data sorteio", 
+  "Qtd apostas", 
+  "Rateio p/ cartão", 
+  "Valor arrecadado",
+  "1a dezena",
+  "2a dezena",
+  "3a dezena",
+  "4a dezena",
+  "5a dezena",
+  "6a dezena",
+  "Obs")
+
+knitr::kable(resultado)
 ```
