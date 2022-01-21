@@ -23,7 +23,6 @@ df <- as.data.frame(read.csv(path, sep = ";", encoding = "UTF-8"))
 ### Renomeando a 1a coluna
 colnames(df)[1] <- "Concurso"
 
-
 ### Descobrindo os numeros que aparecem com maior frequencia
 m <- as.matrix(df[4:9])
 inteiros_unicos <- unique(c(m))
@@ -34,9 +33,10 @@ top_numeros <- head(qtd_repeticoes, 50)
 # barplot(top_numeros)
 
 
-# Análise combinatoria de jogos a partir das dezenas escolhidas
-S <- top_numeros
+# Análise combinatória de jogos a partir das dezenas escolhidas
+# S <- c(4,5,10,23,30,32,33,34,35,36,37,38,53,54)
+S <- c(7, 10, 11, 16, 19, 22, 23)
 n <- length(S)
 r <- 6
-result <- t(combn(S,r))
+result <- t(combn(S, r))
 result

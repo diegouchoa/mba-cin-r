@@ -1,0 +1,79 @@
+---
+title: "Análise dataset Mega-Sena"
+author: "Carlos H Medeiros e Diego Uchoa"
+date: "`r Sys.Date()`"
+output_dir: "."
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+params:
+  path: "dados/megasena.csv"
+---
+
+> Bibliotecas utilizadas
+
+```{r configurando_ambiente}
+require(knitr)
+```
+
+> Leitura do arquivo e já convertendo em um dataframe
+
+```{r leitura_arquivo}
+f <- read.csv(params$path, sep = ";", encoding = "UTF-8", strip.white=TRUE)
+df <- as.data.frame(f)
+```
+
+> Analisando o dataframe
+
+```{r functions, echo=T}
+
+## Listando colunas do dataset
+knitr::kable(head(df, 5))
+
+## Renomeando a 1a coluna
+colnames(df)[1] <- "Concurso"
+
+## Como ficou o dataset após o ajuste nas colunas
+knitr::kable(head(df, 5))
+```
+
+> Descobrindo os numeros que aparecem com maior frequência
+
+```{r ajustes}
+## Fatiamento das colunas que contém os números sorteados
+m <- as.matrix(df[4:9])
+
+## Listagem números únicos
+numero <- unique(c(m))
+
+## Descobrindo quantas vezes foram sorteados
+qtd_repeticoes <- sapply(numero, function(x) sum(m == x))
+df_resultado <- data.frame(numero, qtd_repeticoes)
+```
+
+> Top 10 números com maior frequência
+
+```{r ordenacao_maior_repeticao}
+maior_repeticao <- head(df_resultado[with(df_resultado, order(-df_resultado$qtd_repeticoes)), ], 10)
+
+barplot(maior_repeticao$qtd_repeticoes,
+main = "Top 10 números com maior frequência",
+xlab = "Dezenas",
+ylab = "Frequência",
+names.arg = maior_repeticao$numero,
+horiz = FALSE)
+```
+
+> Top 10 números com menor frequência
+
+```{r ordenacao_menor_repeticao}
+menor_repeticao <- head(df_resultado[with(df_resultado, order(df_resultado$qtd_repeticoes)), ], 10)
+
+barplot(menor_repeticao$qtd_repeticoes,
+main = "Top 10 números com menor frequência",
+xlab = "Dezenas",
+ylab = "Frequência",
+names.arg = menor_repeticao$numero,
+horiz = FALSE)
+```
